@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/GankSir/curso-cypress#readme",
   "devDependencies": {
-    "cypress": "^4.1.0"
+    "cypress": "^4.12.1"
   }
 }
