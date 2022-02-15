@@ -44,12 +44,30 @@ Cypress.Commands.add("createOng", () => {
     });
 })
 
-Cypress.Commands.add("login", () => {
+Cypress.Commands.add('createNewIncident', () => {
+    cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/incidents',
+        header: { 'Autorization': `${Cypress.env('createdOngId')}`, },
+        body: {
+            title: "teste",
+            description: "testando novo para avanço",
+            value: "200"
+
+        }
+    }).then(response => {
+        expect(response.body.id).is.not.null;
+        cy.log(response.body.id);
+
+        Cypress.env('createdIncidentId', response.body.id);
+    })
+})
+Cypress.Commands.add('login', () => {
     cy.visit('http://localhost:3000/profile', {
         //onBeforeLoad antes da pagina carregar eu quero que ele faça alguma coisa 
-            onBeforeLoad: (browser) => {
+        onBeforeLoad: (browser) => {
             browser.localStorage.setItem('ongId', Cypress.env('createdOngId'));
-            browser.localStorage.setItem('ongName', 'Bruno Teles');
+            browser.localStorage.setItem('ongName', 'teste');
         }
     });
 })

@@ -61,15 +61,31 @@ describe('Ongs', () => {
 
     });
     //must be able to register a new cases
-    it('Devem poder cadastrar novos casos', () => {
+    it.skip('Devem poder cadastrar novos casos', () => {
         cy.login()
         cy.get('.button').click();
         cy.get('[placeholder="Título do caso"]').type('Teste para avanço');
         cy.get('textarea').type('Vamos avançar todos os dias nesses teste para automatizar a finpass');
         cy.get('[placeholder="Valor em reais"]').type(200)
-        cy.get('.button').click()
 
+        cy.route('POST', '**/incidents').as('newIncident');
 
+        cy.get('.button').click();
+
+        cy.wait('@newIncident').then((xhr) => {
+            //o status da resposta vai ser 200
+            expect(xhr.status).to.eq(200);
+            //o response body vai ter a propriedade id
+            expect(xhr.response.body).has.property('id');
+            expect(xhr.response.body.id).is.not.null;
+        })
+
+    });
+
+    it('devem poder excluir um caso', () => {
+        cy.createNewIncident();
+        cy.login()
+        //cy.get('li > button > svg').click()
     });
 
 });
