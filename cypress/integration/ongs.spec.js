@@ -63,7 +63,9 @@ describe('Ongs', () => {
     //must be able to register a new cases
     it.skip('Devem poder cadastrar novos casos', () => {
         cy.login()
+
         cy.get('.button').click();
+
         cy.get('[placeholder="Título do caso"]').type('Teste para avanço');
         cy.get('textarea').type('Vamos avançar todos os dias nesses teste para automatizar a finpass');
         cy.get('[placeholder="Valor em reais"]').type(200)
@@ -82,9 +84,10 @@ describe('Ongs', () => {
 
     });
 
-    it('devem poder excluir um caso', () => {
+    it.skip('devem poder excluir um caso', () => {
+        cy.login();
         cy.createNewIncident();
-        cy.login()
+        
         //cy.get('li > button > svg').click()
     });
 
