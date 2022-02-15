@@ -2,12 +2,12 @@
 
 describe('Ongs', () => {
     //slip pausa o teste 
-    it('devem poder realizar um cadastro', () => {
+    it.skip('devem poder realizar um cadastro', () => {
         //cy.visit enter app location
         cy.visit('http://localhost:3000/register');
         //cy.get search for an element 
         //.type insert an element
-        cy.get('[data-cy=name]').type('Danilo Peta');
+        cy.get('[data-cy=name]').type('Bruno Teles');
         cy.wait(1000)
         cy.get('[data-cy=email]').type('teste@teste.com');
         cy.wait(1000)
@@ -40,7 +40,7 @@ describe('Ongs', () => {
 
     });
 
-    it('deve realizar um login no sistema', () => {
+    it.skip('deve realizar um login no sistema', () => {
 
         //const createOngId = Cypress.env('createdOngId');
 
@@ -51,5 +51,26 @@ describe('Ongs', () => {
         cy.get('.button').click();
     });
 
-});
 
+    //must be able to logout
+    //must be able to register a new cases
+    //must can exclude a case
+    it.skip('devem fazer logout', () => {
+        cy.login();
+        cy.get('button').click()
+
+    });
+    //must be able to register a new cases
+    it('Devem poder cadastrar novos casos', () => {
+        cy.login()
+        cy.get('.button').click();
+        cy.get('[placeholder="Título do caso"]').type('Teste para avanço');
+        cy.get('textarea').type('Vamos avançar todos os dias nesses teste para automatizar a finpass');
+        cy.get('[placeholder="Valor em reais"]').type(200)
+        cy.get('.button').click()
+
+
+    });
+
+});
+//a7a06055

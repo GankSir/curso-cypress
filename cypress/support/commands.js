@@ -43,3 +43,13 @@ Cypress.Commands.add("createOng", () => {
 
     });
 })
+
+Cypress.Commands.add("login", () => {
+    cy.visit('http://localhost:3000/profile', {
+        //onBeforeLoad antes da pagina carregar eu quero que ele faça alguma coisa 
+            onBeforeLoad: (browser) => {
+            browser.localStorage.setItem('ongId', Cypress.env('createdOngId'));
+            browser.localStorage.setItem('ongName', 'Bruno Teles');
+        }
+    });
+})
