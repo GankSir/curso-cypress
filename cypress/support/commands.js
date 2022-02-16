@@ -29,11 +29,11 @@ Cypress.Commands.add("createOng", () => {
         method: 'POST',
         url: 'http://localhost:3333/ongs',
         body: {
-            city: "Sete Lagoas",
+            name: "Bruno teles",
             email: "teste@mail.com.br",
-            name: "Bruno Teles",
+            whatsapp: "31991442623",
+            city:'Sete Lagoas',
             uf: "MG",
-            whatsapp: "31991442623"
         }
     }).then(response => {
         expect(response.body.id).is.not.null;
@@ -44,30 +44,33 @@ Cypress.Commands.add("createOng", () => {
     });
 })
 
-// Cypress.Commands.add('createNewIncident', () => {
-//     cy.request({
-//         method: 'POST',
-//         url: 'http://localhost:3333/incidents',
-//         header: { 'Autorization': `${Cypress.env('createdOngId')}`, },
-//         body: {
-//             title: "cachorro abandonado", 
-//             description: "foi abandonado um dog e na rua ze arigo", 
-//             value: "500"
-
-//         }
-//     }).then(response => {
-//         expect(response.body.id).is.not.null;
-//         cy.log(response.body.id);
-
-//         Cypress.env('createdIncidentId', response.body.id);
-//     })
-// })
-   Cypress.Commands.add('login', () => {
-    cy.visit('http://localhost:3000/profile', {
-        //onBeforeLoad antes da pagina carregar eu quero que ele faça alguma coisa 
-        onBeforeLoad: (browser) => {
-            browser.localStorage.setItem('ongId', Cypress.env('createdOngId'));
-            browser.localStorage.setItem('ongName', 'teste');
+Cypress.Commands.add('createNewIncident', () => {
+    Cypress.env('createdOngId')
+    cy.log(Cypress.env('createdOngId'))
+    cy.request({
+        method: 'POST',
+        url: 'http://localhost:3333/incidents',
+        headers: { 'Authorization': `${Cypress.env('createdOngId')}`, },
+        body: {
+            title: "dogs faminto",
+            description: "Os dogs estão famintos na rua da casa de luciana.",
+            value: "500"
         }
-    });
-})
+    }).then(response => {
+        expect(response.body.id).is.not.null;
+        cy.log(response.body.id);
+
+                Cypress.env('createdIncidentId', response.body.id);
+           });
+           
+         })
+
+        Cypress.Commands.add('login', () => {
+            cy.visit('http://localhost:3000/profile', {
+                //onBeforeLoad antes da pagina carregar eu quero que ele faça alguma coisa 
+                onBeforeLoad: (browser) => {
+                    browser.localStorage.setItem('ongId', Cypress.env('createdOngId'));
+                    browser.localStorage.setItem('ongName', 'teste');
+                }
+            });
+        })

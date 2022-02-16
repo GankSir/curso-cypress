@@ -84,12 +84,12 @@ describe('Ongs', () => {
 
     });
 
-    it.skip('devem poder excluir um caso', () => {
-        cy.login();
+    it('devem poder excluir um caso', () => {
         cy.createNewIncident();
+        cy.login();
         
         //cy.get('li > button > svg').click()
     });
 
 });
-//a7a06055
+//d95fa084
