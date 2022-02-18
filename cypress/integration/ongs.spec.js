@@ -2,7 +2,7 @@
 
 describe('Ongs', () => {
     //slip pausa o teste 
-    it.skip('devem poder realizar um cadastro', () => {
+    it('devem poder realizar um cadastro', () => {
         //cy.visit enter app location
         cy.visit('http://localhost:3000/register');
         //cy.get search for an element 
@@ -40,7 +40,7 @@ describe('Ongs', () => {
 
     });
 
-    it.skip('deve realizar um login no sistema', () => {
+    it('deve realizar um login no sistema', () => {
 
         //const createOngId = Cypress.env('createdOngId');
 
@@ -55,13 +55,13 @@ describe('Ongs', () => {
     //must be able to logout
     //must be able to register a new cases
     //must can exclude a case
-    it.skip('devem fazer logout', () => {
+    it('devem fazer logout', () => {
         cy.login();
         cy.get('button').click()
 
     });
     //must be able to register a new cases
-    it.skip('Devem poder cadastrar novos casos', () => {
+    it('Devem poder cadastrar novos casos', () => {
         cy.login()
 
         cy.get('.button').click();
@@ -87,8 +87,16 @@ describe('Ongs', () => {
     it('devem poder excluir um caso', () => {
         cy.createNewIncident();
         cy.login();
-        
-        //cy.get('li > button > svg').click()
+
+        //DELETE 204 http://localhost:3333/incidents/46
+        cy.route('DELETE', '**/incidents/*').as('deleteIncidents');
+
+        cy.get('li > button > svg').click();
+
+        cy.wait('@deleteIncidents').then((xhr) => {
+            expect(xhr.status).to.eq(204);
+            expect(xhr.response.body).to.be.empty;
+        })
     });
 
 });

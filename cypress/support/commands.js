@@ -52,7 +52,7 @@ Cypress.Commands.add('createNewIncident', () => {
         url: 'http://localhost:3333/incidents',
         headers: { 'Authorization': `${Cypress.env('createdOngId')}`, },
         body: {
-            title: "dogs faminto",
+            title: "cats faminto",
             description: "Os dogs estão famintos na rua da casa de luciana.",
             value: "500"
         }
